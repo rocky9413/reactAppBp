@@ -1,8 +1,8 @@
-const express = require('express');
+import { Router } from 'express';
 
-const pokeController = require('../controllers/pokeController');
+import pokeController from '../controllers/pokeController';
 
-const router = express.Router();
+const router = Router();
 
 // GET MORE CHARACTERS ROUTE HANDLER HERE
 router.get(
@@ -28,4 +28,4 @@ router.post(
       .send({ homeworld: res.locals.homeworld, films: res.locals.films });
   }
 );
-module.exports = router;
+export default router;

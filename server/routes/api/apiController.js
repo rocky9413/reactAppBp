@@ -1,14 +1,15 @@
-const fs = require('fs');
-const path = require('path');
-const mongoose = require('mongoose');
+import fs from 'fs';
+import path from 'path';
+import mongoose from 'mongoose';
 
-const { Pokemons } = require('../models/PokemonModel');
+import { Pokemons } from './apiModel';
 
-const fileController = {};
-
-fileController.getCharacters = (req, res, next) => {
+export const getPokemons = (req, res, next) => {
   const pokemons = JSON.parse(
-    fs.readFileSync(path.resolve(__dirname, '../data/pokemons.json'), 'UTF-8')
+    fs.readFileSync(
+      path.resolve(__dirname, '../../data/pokemons.json'),
+      'UTF-8'
+    )
   );
 
   if (!pokemons) {
@@ -38,7 +39,7 @@ fileController.getCharacters = (req, res, next) => {
   next();
 };
 
-fileController.getByName = (req, res, next) => {
+export const getByName = (req, res, next) => {
   const { pokeName } = req.body;
 
   Pokemons.findOne({ name: pokeName }, function(err, onePoke) {
@@ -54,15 +55,20 @@ fileController.getByName = (req, res, next) => {
   });
 };
 
-fileController.getById = (req, res, next) => {
-  // console('what is id', req);
-  const id = Number(req.params.id) || req.body.pokeId;
+export const getById = (req, res, next) => {
+  const id = req.params.id === ':id' ? req.body.pokeId : req.params.id;
+
+  if (Number(id) < 1 || Number(id) > 150 || id.length > 3) {
+    res.locals.onePoke = { notExist: 'please enter correct id!!' };
+    return next();
+  }
 
   Pokemons.findOne({ id }, function(err, onePoke) {
     if (err) {
       return res.send({ err: 'error in getById' });
     }
-    if (onePoke) res.locals.onePoke = onePoke;
+    // console.log('onepoke === ', onePoke);
+    if (onePoke.id) res.locals.onePoke = onePoke;
     else {
       res.locals.onePoke = { notExist: 'pokemon id not exist!!' };
     }
@@ -71,7 +77,7 @@ fileController.getById = (req, res, next) => {
 };
 
 // MIDDLEWARE TO GET FAVORITE CHARACTERS HERE
-fileController.getFavs = (req, res, next) => {
+export const getFavs = (req, res, next) => {
   const results = JSON.parse(
     fs.readFileSync(path.resolve(__dirname, '../data/favs.json'), 'UTF-8')
   );
@@ -80,7 +86,7 @@ fileController.getFavs = (req, res, next) => {
 };
 
 // ADD MIDDLEWARE TO ADD A FAVORITE CHARACTER HERE
-fileController.addFav = (req, res, next) => {
+export const addFav = (req, res, next) => {
   if (!(res.locals.favs || typeof res.locals.favs === 'object')) {
     return next({
       log: 'addFavs: ERROR: Invalid data on res.locals object.',
@@ -103,7 +109,7 @@ fileController.addFav = (req, res, next) => {
 };
 
 // MIDDLEWARE TO REMOVE A CHARACTER FROM FAVORITES HERE
-fileController.removeFav = (req, res, next) => {
+export const removeFav = (req, res, next) => {
   const favsObj = res.locals.favs;
   const { id } = req.params;
   delete favsObj[id];
@@ -114,5 +120,3 @@ fileController.removeFav = (req, res, next) => {
   );
   next();
 };
-
-module.exports = fileController;

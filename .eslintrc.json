@@ -5,16 +5,18 @@
     "plugin:react/recommended",
     "plugin:jsx-a11y/recommended",
     "prettier",
-    "prettier/react"
+    "prettier/react",
+    "plugin: jest/recommend"
   ],
   "rules": {
     "react/prop-types": 0,
     "no-console": 0,
     "react-hooks/rules-of-hooks": 2,
-    "react-hooks/exhaustive-deps": 1
+    "react-hooks/exhaustive-deps": 1,
+    "promise/catch-or-return": "error"
   },
   "parser": "babel-eslint",
-  "plugins": ["react", "import", "jsx-a11y", "react-hooks"],
+  "plugins": ["react", "import", "jsx-a11y", "react-hooks", "jest"],
   "parserOptions": {
     "ecmaVersion": 2018,
     "sourceType": "module",

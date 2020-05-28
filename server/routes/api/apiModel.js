@@ -1,9 +1,9 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const myURI =
   'mongodb+srv://rocky:ilovetesting@rlcluster-cy0q7.mongodb.net/test?retryWrites=true&w=majority';
 
-const URI = process.env.MONGO_URI || myURI; // DB URI
+export const URI = process.env.MONGO_URI || myURI; // DB URI
 
 // Create Message Schema
 const MsgSchema = new mongoose.Schema({
@@ -33,6 +33,4 @@ const MsgSchema = new mongoose.Schema({
 //   next();
 // });
 
-const Pokemons = mongoose.model('Pokemons', MsgSchema);
-
-module.exports = { URI, Pokemons }; // <-- export your model
+export const Pokemons = mongoose.model('Pokemons', MsgSchema);

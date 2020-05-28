@@ -1,8 +1,8 @@
-const express = require('express');
+import { Router } from 'express';
 
-const fileController = require('../controllers/fileController');
+import fileController from './api/apiController';
 
-const router = express.Router();
+const router = Router();
 
 // ADD STORE FAVORITE ROUTE HANDLER HERE
 router.post(
@@ -31,4 +31,4 @@ router.delete(
   }
 );
 
-module.exports = router;
+export default router;
