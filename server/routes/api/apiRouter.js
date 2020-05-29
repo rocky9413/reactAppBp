@@ -11,23 +11,32 @@ const router = Router();
 
 // router.use('/characters', moreCharactersRouter);
 
-router.use(
-  '/allPoke',
-  getPokemons,
-  // getFavs,
-  (req, res) => {
-    res
-      .status(200)
-      .send({ characters: res.locals.characters, favs: res.locals.favs });
-  }
-);
+const allChars = (req, res) => {
+  res.status(200).send({
+    characters: res.locals.characters,
+    favs: res.locals.favs
+  });
+};
 
-router.use('/name', getPokemons, getByName, (req, res) => {
+const oneChar = (req, res) => {
   res.status(200).send({ onePoke: res.locals.onePoke });
-});
+};
 
-router.use('/:id', getPokemons, getById, (req, res) => {
-  res.status(200).send({ onePoke: res.locals.onePoke });
-});
+router.route('/allPoke').get(getPokemons, allChars);
+
+router.route('/name').get(getPokemons, getByName, oneChar);
+
+router.route('/:id').get(getPokemons, getById, oneChar);
+
+// router.use('/allPoke', getPokemons, (req, res) => {
+//   res.status(200).send({
+//     characters: res.locals.characters,
+//     favs: res.locals.favs
+//   });
+// });
+
+// router.use('/:id', getPokemons, getById, (req, res) => {
+//   res.status(200).send({ onePoke: res.locals.onePoke });
+// });
 
 export default router;

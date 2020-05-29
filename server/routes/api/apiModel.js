@@ -6,9 +6,9 @@ const myURI =
 export const URI = process.env.MONGO_URI || myURI; // DB URI
 
 // Create Message Schema
-const MsgSchema = new mongoose.Schema({
+const PokeSchema = new mongoose.Schema({
   id: String,
-  name: String,
+  name: { type: String, required: true },
   classification: String,
   types: Array,
   resistant: Array,
@@ -24,7 +24,7 @@ const MsgSchema = new mongoose.Schema({
 });
 
 // // use pre method to save the current time
-// MsgSchema.pre('save', function(next) {
+// PokeSchema.pre('save', function(next) {
 //   // get current date
 //   let currDate = new Date();
 //   this.created_at = currDate;
@@ -33,4 +33,6 @@ const MsgSchema = new mongoose.Schema({
 //   next();
 // });
 
-export const Pokemons = mongoose.model('Pokemons', MsgSchema);
+// PokeSchema.index({ id: 1, name: 1 }, { unique: true });
+
+export const Pokemons = mongoose.model('Pokemons', PokeSchema);
