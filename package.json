@@ -16,7 +16,8 @@
     "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js --env.mode production",
     "test": "jest",
     "test-routes": "npm run test -t router",
-    "test-model": "npm run test -t model"
+    "test-model": "npm run test -t model",
+    "test-controller": "npm run test -t controller"
   },
   "keywords": [
     "react",
