@@ -1,17 +1,10 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import path from 'path';
 
+import { dbMbConnect } from './dbMb';
 import apiRouter from './routes/api/apiRouter';
-import { URI } from './routes/api/apiModel'; // db URI
 
 export const app = express();
-
-// connect to MongoDb
-mongoose
-  .connect(URI, { useUnifiedTopology: true, useNewUrlParser: true })
-  .then(() => console.log('MongoDB Connected..'))
-  .catch(err => console.log(err));
 
 // handle parsing request body
 app.use(express.json());
@@ -58,7 +51,12 @@ app.use((err, req, res, next) => {
   res.status(errorObj.status).send(errorObj.message.err);
 });
 
-export const server = () => {
-  const PORT = process.env.PORT || 3000;
-  app.listen(PORT, console.log(`Server listen on port ${PORT}`));
+export const server = async () => {
+  try {
+    await dbMbConnect();
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, console.log(`Server listen on port ${PORT}`));
+  } catch (e) {
+    console.error(e);
+  }
 };

@@ -1,10 +1,5 @@
 import mongoose from 'mongoose';
 
-const myURI =
-  'mongodb+srv://rocky:ilovetesting@rlcluster-cy0q7.mongodb.net/test?retryWrites=true&w=majority';
-
-export const URI = process.env.MONGO_URI || myURI; // DB URI
-
 // Create Message Schema
 const PokeSchema = new mongoose.Schema({
   id: String,
