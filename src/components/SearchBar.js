@@ -1,7 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import { PokeContext } from './GlobalContext';
 import PokeCard from './PokeCard';
-import { set } from 'mongoose';
 
 const SearchBar = ({ filTxt, onUserInput }) => {
   const inputEl = useRef(null);
@@ -14,7 +13,6 @@ const SearchBar = ({ filTxt, onUserInput }) => {
 
   const [pokeId, setPokeId] = useState('');
   const [pokeName, setName] = useState('');
-
   const [notFound, setNotFound] = useState('');
 
   const handleId = event => {
@@ -41,19 +39,16 @@ const SearchBar = ({ filTxt, onUserInput }) => {
       fetchPath = 'name';
     } else if (e.target[0].placeholder === 'Search by id') {
       options.body = JSON.stringify({ pokeId });
-      fetchPath = ':id';
+      fetchPath = 'id';
     }
-
-    // console.log('Place => ', e.target[0].placeholder, fetchPath);
 
     fetch(`/api/${fetchPath}`, options)
       .then(res => res.json())
-      .then(({ onePoke }) => {
-        // console.log('what is poke', onePoke);
-        if (onePoke.notExist) {
+      .then(data => {
+        if (data === undefined || data.notExist) {
           setNotFound('Pokemon not found, enter correct name or id');
         }
-        setQuery(onePoke);
+        setQuery(data);
       })
       .catch(err => console.log('Fetch: ERROR: ', err));
   };

@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useRouteMatch } from 'react-router-dom';
 import { PokeContext } from './GlobalContext';
 import PokeCard from './PokeCard';
 
@@ -15,8 +15,10 @@ const Pokemons = () => {
     setFavs
   } = useContext(PokeContext);
 
+  const { url } = useRouteMatch();
+
   useEffect(() => {
-    fetch('/api/allPoke')
+    fetch('/api/pokemons')
       .then(res => res.json())
       .then(({ characters, favs = {} }) => {
         setFetchedChars(true);
@@ -26,14 +28,15 @@ const Pokemons = () => {
       .catch(err => console.log('Fetch: ERROR: ', err));
   }, []);
 
-  const charElems = pokemons.map((elem, i) => {
+  const allPokemons = pokemons.map((elem, i) => {
     return (
-      <PokeCard
-        key={i}
-        info={elem}
-        // isFav={favs && favs[id] ? favs[id] : false}
-        // favClicked={this.favClicked}
-      />
+      <Link
+        key={elem.id}
+        style={{ textDecoration: 'none' }}
+        to={`${url}/${elem.id}`}
+      >
+        <PokeCard key={elem.id} info={elem} />
+      </Link>
     );
   });
 
@@ -45,7 +48,7 @@ const Pokemons = () => {
     <div className="router">
       <h1>Showing All Pokemons:</h1>
       <Link to="/">Get Back to Main Page</Link>
-      <div className="charContainer">{charElems}</div>
+      <div className="charContainer">{allPokemons}</div>
     </div>
   );
 };

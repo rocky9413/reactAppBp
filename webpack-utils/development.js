@@ -12,7 +12,7 @@ module.exports = () => ({
     port: 8080,
     proxy: {
       context: () => true,
-      target: 'http://localhost:3000'
+      '/api/**': { target: 'http://localhost:3000' }
     }
   },
   // devtool: 'inline-source-map',

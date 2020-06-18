@@ -18,9 +18,10 @@ export const checkNgetAll = model => async (req, res, next) => {
   }
 
   try {
-    await pokemons.forEach(elem => {
-      const result = model.findOne({ id: elem.id });
-      if (!result.id) {
+    await pokemons.forEach(async elem => {
+      const data = await model.findOne({ id: elem.id }, { id: true }).exec();
+      // console.log('data ===== >>> ', data.id);
+      if (!data.id) {
         model.collection.insertOne(elem);
       }
     });
@@ -63,7 +64,7 @@ export const getOneByName = model => async (req, res, next) => {
 
 export const getOneById = model => async (req, res) => {
   try {
-    const id = req.params.id === ':id' ? req.body.pokeId : req.params.id;
+    const id = req.body.pokeId;
     const result = await model
       .findOne({ id })
       .lean()
