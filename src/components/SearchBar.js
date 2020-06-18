@@ -1,7 +1,6 @@
 import React, { useState, useRef, useContext } from 'react';
 import { PokeContext } from './GlobalContext';
 import PokeCard from './PokeCard';
-import { set } from 'mongoose';
 
 const SearchBar = ({ filTxt, onUserInput }) => {
   const inputEl = useRef(null);
@@ -11,10 +10,8 @@ const SearchBar = ({ filTxt, onUserInput }) => {
   };
 
   const { query, setQuery } = useContext(PokeContext);
-
   const [pokeId, setPokeId] = useState('');
   const [pokeName, setName] = useState('');
-
   const [notFound, setNotFound] = useState('');
 
   const handleId = event => {

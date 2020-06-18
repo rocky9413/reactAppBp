@@ -1,4 +1,4 @@
-import React, { FunctionComponent, ReactChild } from 'react';
+import React, { FunctionComponent } from 'react';
 
 type CardProps = {
   id: string;
