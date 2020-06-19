@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SearchBar from './SearchBar';
 
-const Home = () => {
+const Home: React.FC = () => {
   return (
     <div>
       <h1>Lets Get Pokemons: </h1>

@@ -4,16 +4,9 @@ import { PokeContext } from './GlobalContext';
 import PokeCard from './PokeCard';
 
 const Pokemons = () => {
-  const {
-    pokemons,
-    setPokemons,
-    fetchedChars,
-    setFetchedChars,
-    query,
-    setQuery,
-    favs,
-    setFavs
-  } = useContext(PokeContext);
+  const { pokemons, setPokemons, fetchedChars, setFetchedChars } = useContext(
+    PokeContext
+  );
 
   const { url } = useRouteMatch();
 
@@ -23,7 +16,7 @@ const Pokemons = () => {
       .then(({ characters, favs = {} }) => {
         setFetchedChars(true);
         setPokemons(characters);
-        setFavs(favs);
+        // setFavs(favs);
       })
       .catch(err => console.log('Fetch: ERROR: ', err));
   }, []);

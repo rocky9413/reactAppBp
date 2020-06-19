@@ -12,7 +12,7 @@
     "dev": "webpack-dev-server --env.mode development --open",
     "dev-server": "nodemon --exec babel-node ./server/server.js",
     "format": "prettier --write \"src/**/*.{js,jsx,html}\"",
-    "lint": "tslint --project",
+    "lint": "tslint --project .",
     "debug": "node --inspect --inspect-brk ./node_modules/webpack/bin/webpack.js --env.mode production",
     "test": "jest",
     "test-routes": "npm run test -t router",

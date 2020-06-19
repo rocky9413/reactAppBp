@@ -6,15 +6,19 @@ import Pokemons from './components/Pokemons';
 import PokemonDetail from './components/PokemonDetail';
 import './styles.css';
 
-const App = () => {
+// interface Props = {
+//   exact: true;
+// };
+
+const App: React.FC = ({}) => {
   return (
     <PokeProvider>
       <HashRouter>
         <Switch>
-          <Route exact path="/">
+          <Route exact={true} path="/">
             <Home />
           </Route>
-          <Route exact path="/pokemons">
+          <Route exact={true} path="/pokemons">
             <Pokemons />
           </Route>
           <Route path="/pokemons/:pokemonId">

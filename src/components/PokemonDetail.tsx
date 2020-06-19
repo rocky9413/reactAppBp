@@ -2,7 +2,11 @@ import React, { useContext } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { PokeContext } from './GlobalContext';
 
-const PokemonDetail = props => {
+interface Props = {
+  children: React.ReactNode;
+};
+
+const PokemonDetail: React.FC = () => {
   const { pokemonId } = useParams();
 
   const history = useHistory();
@@ -36,3 +40,22 @@ const PokemonDetail = props => {
 };
 
 export default PokemonDetail;
+
+
+// interface Person {
+//   firstName: string;
+//   lastName: string;
+// }
+
+// interface Props {
+//   text: string;
+//   ok?: boolean;
+//   i?: number;
+//   fn?: (bob: string) => string;
+//   person: Person;
+//   handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+// }
+
+// interface TextNode {
+//   text: string;
+// }
