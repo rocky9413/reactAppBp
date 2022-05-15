@@ -3,12 +3,12 @@ const webpack = require('webpack');
 
 module.exports = () => ({
   devServer: {
-    publicPath: '/',
-    watchContentBase: true,
+    // publicPath: '/',
+    // watchContentBase: true,
     historyApiFallback: true,
     hot: true,
-    inline: true,
-    progress: true,
+    // inline: true,
+    // progress: true,
     port: 8080,
     proxy: {
       context: () => true,

@@ -1,7 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpackMerge = require('webpack-merge');
+const { merge } = require('webpack-merge');
 
 const modeConfig = env => require(`./webpack-utils/${env}`)(env);
 const addPresets = require('./webpack-utils/addPresets');
@@ -24,7 +24,7 @@ module.exports = ({ mode, presets } = { mode: 'production', presets: [] }) => {
     use: 'ts-loader'
   };
 
-  return webpackMerge(
+  return merge(
     {
       mode,
       target: 'web',
@@ -41,11 +41,11 @@ module.exports = ({ mode, presets } = { mode: 'production', presets: [] }) => {
       module: {
         rules: [js, ts]
       },
-      optimization: {
-        splitChunks: {
-          chunks: 'all'
-        }
-      },
+      // optimization: {
+      //   splitChunks: {
+      //     chunks: 'all'
+      //   }
+      // },
       plugins: [
         new HtmlWebpackPlugin({
           template: path.resolve(__dirname, './src/index.html'),
