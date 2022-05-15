@@ -7,8 +7,6 @@ module.exports = () => ({
     // watchContentBase: true,
     historyApiFallback: true,
     hot: true,
-    // inline: true,
-    // progress: true,
     port: 8080,
     proxy: {
       context: () => true,

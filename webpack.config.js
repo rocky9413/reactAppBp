@@ -33,7 +33,7 @@ module.exports = ({ mode, presets } = { mode: 'production', presets: [] }) => {
       },
       output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: mode === 'production' ? 'bundle.js' : '[name].js',
       },
       resolve: {
         extensions: ['.js', '.jsx', '.css']
@@ -41,11 +41,11 @@ module.exports = ({ mode, presets } = { mode: 'production', presets: [] }) => {
       module: {
         rules: [js, ts]
       },
-      // optimization: {
-      //   splitChunks: {
-      //     chunks: 'all'
-      //   }
-      // },
+      optimization: {
+        splitChunks: {
+          chunks: 'all'
+        }
+      },
       plugins: [
         new HtmlWebpackPlugin({
           template: path.resolve(__dirname, './src/index.html'),
