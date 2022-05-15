@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link, useMatch } from 'react-router-dom';
 import { PokeContext } from './GlobalContext';
 import PokeCard from './PokeCard';
 
@@ -15,7 +15,7 @@ const Pokemons = () => {
     setFavs
   } = useContext(PokeContext);
 
-  const { url } = useRouteMatch();
+  const { url } = useMatch();
 
   useEffect(() => {
     fetch('/api/pokemons')
