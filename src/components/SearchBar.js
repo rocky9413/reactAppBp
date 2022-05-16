@@ -17,7 +17,17 @@ const SearchBar = ({ filTxt, onUserInput }) => {
 
   const handleId = event => {
     setName('');
-    setPokeId(event.target.value);
+    const { value = '' } = event.target;
+    const number = parseInt(value);
+    if (number >= 100) {
+      setPokeId(number);
+    } else if (number >= 10) {
+      setPokeId('0' + number);
+    } else if (number >= 1) {
+      setPokeId('00' + number);
+    } else {
+      setPokeId(value);
+    }
   };
   const handleName = event => {
     setPokeId('');
@@ -31,13 +41,13 @@ const SearchBar = ({ filTxt, onUserInput }) => {
       method: 'POST',
       headers: { 'Content-type': 'application/json' }
     };
-
+    const { placeholder = '' } = e.target[0];
     let fetchPath = '';
 
-    if (e.target[0].placeholder === 'Search by name') {
+    if (placeholder === 'Search by name') {
       options.body = JSON.stringify({ pokeName });
       fetchPath = 'name';
-    } else if (e.target[0].placeholder === 'Search by id') {
+    } else if (placeholder === 'Search by id') {
       options.body = JSON.stringify({ pokeId });
       fetchPath = 'id';
     }
@@ -47,70 +57,92 @@ const SearchBar = ({ filTxt, onUserInput }) => {
       .then(data => {
         if (data === undefined || data.notExist) {
           setNotFound('Pokemon not found, enter correct name or id');
+        } else {
+          const { id = '' } = data;
+          if (!query.hasOwnProperty(id)) {
+            const newData = {
+              ...query,
+              [id]: data,
+            }
+            setQuery(newData);
+          }
         }
-        setQuery(data);
       })
       .catch(err => console.log('Fetch: ERROR: ', err));
   };
 
+  const renderPokemon = () => {
+    return Object.values(query).map(pokemon => {
+      return (
+        <PokeCard key={pokemon.id} pokemon={pokemon} />
+      );
+    });
+  };
+
   return (
-    <div>
-      <form onSubmit={e => handleSubmit(e)}>
-        <label>
-          Query By ID:
-          <input
-            className="search"
-            type="text"
-            placeholder="Search by id"
-            value={pokeId}
-            onChange={handleId}
-          />
-          <input type="submit" value="Submit" />
-        </label>
-      </form>
-      <br />
+    <>
+      <div>
+        <form onSubmit={e => handleSubmit(e)}>
+          <label>
+            Query By ID:
+            <input
+              className="search"
+              type="text"
+              placeholder="Search by id"
+              value={pokeId}
+              onChange={handleId}
+            />
+            <input type="submit" value="Submit" />
+          </label>
+        </form>
+        <br />
 
-      <form onSubmit={e => handleSubmit(e)}>
-        <label>
-          Query By Name:
-          <input
-            className="search"
-            type="text"
-            placeholder="Search by name"
-            value={pokeName}
-            onChange={handleName}
-          />
-          <input type="submit" value="Submit" />
-        </label>
-      </form>
-      <br />
+        <form onSubmit={e => handleSubmit(e)}>
+          <label>
+            Query By Name:
+            <input
+              className="search"
+              type="text"
+              placeholder="Search by name"
+              value={pokeName}
+              onChange={handleName}
+            />
+            <input type="submit" value="Submit" />
+          </label>
+        </form>
+        <br />
 
-      <form onSubmit={e => handleSubmit(e)}>
-        <label>
-          Query List of Pokemon Types:{' '}
-          <input
-            className="search"
-            type="text"
-            placeholder="Get list of pokemon types"
-            value={filTxt}
-            ref={inputEl}
-            onChange={handleChange}
-          />
-          <input type="submit" value="Submit" />
-        </label>
-      </form>
-      <br />
+        <form onSubmit={e => handleSubmit(e)}>
+          <label>
+            Query List of Pokemon Types:{' '}
+            <input
+              className="search"
+              type="text"
+              placeholder="Get list of pokemon types"
+              value={filTxt}
+              ref={inputEl}
+              onChange={handleChange}
+            />
+            <input type="submit" value="Submit" />
+          </label>
+        </form>
+        <br />
 
-      {/* <form onSubmit={e => handleSubmit(e)}>
-        <label>
-          Get Favs Pokemons:
-          <input type="text" name="password" />
-          <input type="submit" value="Submit" />
-        </label>
-      </form> */}
+        {/* <form onSubmit={e => handleSubmit(e)}>
+          <label>
+            Get Favs Pokemons:
+            <input type="text" name="password" />
+            <input type="submit" value="Submit" />
+          </label>
+        </form> */}
 
-      {query.name ? <PokeCard info={query} /> : notFound}
-    </div>
+        {notFound ? notFound : null}
+        <br />
+      </div>
+      <div className="pokemonContainer">
+        {renderPokemon()}
+      </div>
+    </>
   );
 };
 

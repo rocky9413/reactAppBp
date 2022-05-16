@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PokeCard = ({ info }) => {
+const PokeCard = ({ pokemon }) => {
   const {
     id,
     name,
@@ -16,7 +16,7 @@ const PokeCard = ({ info }) => {
     // maxCP,
     // maxHP,
     // attacks
-  } = info;
+  } = pokemon;
 
   return (
     <article className="pokemonCard">

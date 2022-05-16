@@ -20,7 +20,8 @@ const Pokemons = () => {
   useEffect(() => {
     fetch('/api/pokemons')
       .then(res => res.json())
-      .then(({ characters, favs = {} }) => {
+      .then((data) => {
+        const { characters, favs = {} } = data;
         setFetchedChars(true);
         setPokemons(characters);
         setFavs(favs);
