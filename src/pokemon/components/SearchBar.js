@@ -46,10 +46,10 @@ const SearchBar = ({ filTxt, onUserInput }) => {
 
     if (placeholder === 'Search by name') {
       options.body = JSON.stringify({ pokeName });
-      fetchPath = 'name';
+      fetchPath = 'getOneByName';
     } else if (placeholder === 'Search by id') {
       options.body = JSON.stringify({ pokeId });
-      fetchPath = 'id';
+      fetchPath = 'getOneById';
     }
 
     fetch(`/api/${fetchPath}`, options)

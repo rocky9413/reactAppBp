@@ -12,11 +12,11 @@ const router = Router();
 
 // router.use('/characters', moreCharactersRouter);
 
-router.route('/pokemons').get(controllers.checkNgetAll);
+router.get('/getAllPokemon', controllers.checkNgetAll);
 
-router.route('/name').post(controllers.getOneByName);
+router.post('/getOneByName', controllers.getOneByName);
 
-router.route('/id').post(controllers.getOneById);
+router.post('/getOneById', controllers.getOneById);
 
 // router.use('/allPoke', getPokemons, (req, res) => {
 //   res.status(200).send({

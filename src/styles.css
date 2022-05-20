@@ -4,60 +4,6 @@ body {
   background-color: lavender;
 }
 
-.main {
-  padding: 1rem;
-}
-
 h1 {
   color: cornflowerblue;
-}
-
-p {
-  color: blue;
-  font-size: 1.5rem;
-}
-
-text {
-  font-size: 2em;
-}
-
-.charContainer {
-  padding: 1rem 3rem;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-button {
-  border-radius: 0;
-  background: transparent;
-}
-.pokemonContainer {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.pokemonCard {
-  display: grid;
-  grid-row-gap: 1rem;
-  width: 200px;
-  height: 120px;
-  margin: 0.5rem;
-  color: black;
-  background: #f3f3f3;
-  padding: 1rem;
-  border: 1px solid lightgray;
-  box-shadow: 1px 1px 5px rgba(22, 22, 22, 0.915);
-  transition: all 0.3s ease-in-out;
-}
-
-.pokemonCard:hover {
-  cursor: pointer;
-  /* box-shadow: rgba(75, 175, 225, 0.22) 5px 15px 25px 5px; */
-  box-shadow: rgba(10, 150, 50, 0.25) 5px 10px 15px 5px;
-  transform: translate3d(0px, -2px, 0px);
 }
